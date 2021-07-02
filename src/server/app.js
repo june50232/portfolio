@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
+const webpackAssets = require('express-webpack-assets');
 
 module.exports = () => {
 var app = express();
@@ -49,3 +50,7 @@ app.use(function(err, req, res, next) {
 
   return app;
 }
+
+app.use(webpackAssets(path.join(__dirname, '../../dist/webpack-assets.json'), {
+  devMode: process.env.NODE_ENV !== "production"
+}));
