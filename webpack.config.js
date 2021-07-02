@@ -1,4 +1,5 @@
 const config = require("./src/config");
+const Webpack = require("webpack");
 
 var webpackConfig = {
     entry: {main: ["./src/client/main.js"]},
@@ -30,7 +31,11 @@ var webpackConfig = {
                 ],
             }
         ]
-    }
+    },
+    plugins: [
+    ]
 };
-
+if (config.hmrEnabled) {
+    webpackConfig.plugins.push(new Webpack.HotModuleReplacementPlugin());
+}
 module.exports = webpackConfig;

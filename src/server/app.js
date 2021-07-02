@@ -23,7 +23,12 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 const config = require("../config");
-app.use(config.publicPath, express.static(config.distFolder));
+if (config.isProd) {
+  app.use(config.publicPath, express.static(config.distFolder));
+} else {
+  const {createProxy} = require("./hmr");
+  app.use(config.publicPath, createProxy());
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
