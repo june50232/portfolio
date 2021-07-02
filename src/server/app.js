@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
+module.exports = () => {
 var app = express();
 
 // view engine setup
@@ -46,4 +47,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+  return app;
+}
